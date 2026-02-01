@@ -61,8 +61,8 @@ func (h *CategoryHandler) HandleCategoryById(w http.ResponseWriter, r *http.Requ
 	switch r.Method {
 	case http.MethodGet:
 		h.GetById(w, r)
-	case http.MethodPost:
-		h.Create(w, r)
+	case http.MethodPut:
+		h.UpdateById(w, r)
 	case http.MethodDelete:
 		h.DeleteById(w, r)
 	default:
