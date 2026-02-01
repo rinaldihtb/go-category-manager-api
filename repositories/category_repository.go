@@ -43,7 +43,7 @@ func (repo *CategoryRepository) Create(category *models.Category) error {
 }
 
 func (repo *CategoryRepository) GetById(id int) (*models.Category, error) {
-	query := "SELECT id, name, description FROM category WHERE id = $1"
+	query := "SELECT id, name, description FROM categories WHERE id = $1"
 
 	var p models.Category
 	err := repo.db.QueryRow(query, id).Scan(&p.ID, &p.Name, &p.Description)
@@ -78,7 +78,7 @@ func (repo *CategoryRepository) Update(category *models.Category) error {
 }
 
 func (repo *CategoryRepository) DeleteById(id int) error {
-	query := "DELETE FROM category WHERE id = $1"
+	query := "DELETE FROM categories WHERE id = $1"
 	result, err := repo.db.Exec(query, id)
 	if err != nil {
 		return err

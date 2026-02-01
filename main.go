@@ -2,6 +2,9 @@ package main
 
 import (
 	"category-manager-api/database"
+	"category-manager-api/handlers"
+	"category-manager-api/repositories"
+	"category-manager-api/services"
 	"encoding/json"
 	"fmt"
 	"log"
@@ -38,12 +41,12 @@ func main() {
 	}
 	defer db.Close()
 
-	// categoryRepo := repositories.NewCategoryRepository(db)
-	// categoryService := services.NewCategoryService(categoryRepo)
-	// categoryHandler := handlers.NewCategoryHandler(categoryService)
+	categoryRepo := repositories.NewCategoryRepository(db)
+	categoryService := services.NewCategoryService(categoryRepo)
+	categoryHandler := handlers.NewCategoryHandler(categoryService)
 
-	// http.HandleFunc("/categories", categoryHandler.HandleCategories)
-	// http.HandleFunc("/categories/", categoryHandler.HandleCategoryById)
+	http.HandleFunc("/categories", categoryHandler.HandleCategories)
+	http.HandleFunc("/categories/", categoryHandler.HandleCategoryById)
 
 	http.HandleFunc("/health", func(w http.ResponseWriter, r *http.Request) {
 		w.Header().Set("Content-Type", "application/json")
